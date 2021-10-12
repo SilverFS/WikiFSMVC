@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MvcCore.Models
 {
-    public class TextModel
+    public class PageModel
     {
         public int ID { get; set; }
         public string Title { get; set; }
