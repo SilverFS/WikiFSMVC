@@ -26,7 +26,7 @@ namespace MvcCore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Page");
         }
 
         public IActionResult Privacy()
