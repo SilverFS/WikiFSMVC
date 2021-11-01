@@ -1,11 +1,11 @@
-﻿@model List<PageModel>
+﻿@model List<DAL.DTO.Page>
 
 @{ ViewData["Title"] = "Home Page"; }
 
 <a asp-action="Create" class="btn btn-success mb-3">Create</a>
 </br>
 <div class="row">
-    @foreach (PageModel text in Model)
+    @foreach (DAL.DTO.Page text in Model)
     {
 <div class="col-4 mb-3">
     <div class="card">

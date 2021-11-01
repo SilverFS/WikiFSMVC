@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.SqlClient;
 using MvcCore.Models;
+using DAL.DTO;
 
 namespace MvcCore.Controllers
 {
@@ -16,16 +17,16 @@ namespace MvcCore.Controllers
         private readonly ILogger<PageController> _logger;
         private readonly string _connectionString;
 
-        public PageController(ILogger<PageController> logger, 
+        public PageController(ILogger<PageController> logger,   
             IConfiguration configuration)
         {
             _logger = logger;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public List<PageModel> GetallText()
+        public List<Page> GetallText()
         {
-            List<PageModel> allText = new List<PageModel>();
+            List<Page> allText = new List<Page>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -36,7 +37,7 @@ namespace MvcCore.Controllers
                     {
                         while (reader.Read())
                         {
-                            allText.Add(new PageModel
+                            allText.Add(new Page
                             {
                                 ID = Convert.ToInt32(reader["ID"].ToString()),
                                 Title = reader["Title"].ToString(),
@@ -49,7 +50,7 @@ namespace MvcCore.Controllers
             return allText;
         }
 
-        public void CreatePage(PageModel page)
+        public void CreatePage(Page page)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -102,7 +103,7 @@ namespace MvcCore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(PageModel page)
+        public IActionResult Create(Page page)
         {
             CreatePage(page);
             return RedirectToAction("Index");

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DAL
+namespace BusinessLogic
 {
     public class Class1
     {
