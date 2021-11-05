@@ -4,8 +4,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.SqlClient;
 using System.Text;
-using DAL.DTO;
-using BusinessLogic.Interfaces;
+using InterfaceLayer.DTO;
+
+
 
 namespace DAL
 {

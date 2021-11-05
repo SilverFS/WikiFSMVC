@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.DTO
+namespace InterfaceLayer.DTO
 {
     public class Page
     {

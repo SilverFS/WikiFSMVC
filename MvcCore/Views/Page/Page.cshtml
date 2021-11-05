@@ -1,0 +1,19 @@
+﻿@model InterfaceLayer.DTO.Page
+
+@{ ViewData["Title"] = "bruh"; }
+
+
+<h1>@Model.Title</h1>
+
+<p>@Model.Text</p>
+
+<form asp-action="Delete" asp-route-ID="@Model.ID">
+    <button class="btn btn-outline-danger" type="submit">Delete</button>
+</form>
+<a asp-action="Edit" asp-route-ID="@Model.ID">
+    <button class="btn btn-outline-warning" type="submit">Edit</button>
+</a>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
