@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InterfaceLayer\InterfaceLayer.csproj" />
+    <ProjectReference Include="..\FactoryT\Factory.csproj" />
   </ItemGroup>
 
 </Project>

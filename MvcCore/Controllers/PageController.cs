@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
 using MvcCore.Models;
-using BusinessLogic;
 using DAL;
+using Factory;
 
 namespace MvcCore.Controllers
 {
@@ -44,7 +43,7 @@ namespace MvcCore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(InterfaceLayer.DTO.Page page)
+        public IActionResult Create(Factory.DTO.PageDTO page)
         {
             textContainer.CreatePage(page);
             return RedirectToAction("Index");
@@ -63,7 +62,7 @@ namespace MvcCore.Controllers
             return View(textContainer.GetPage(ID));
         }
         
-        public IActionResult Edit(InterfaceLayer.DTO.Page page, int ID)
+        public IActionResult Edit(Factory.DTO.PageDTO page, int ID)
         {
             page.ID = ID;
             textContainer.EditPage(page);

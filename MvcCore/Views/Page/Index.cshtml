@@ -1,4 +1,4 @@
-﻿@model List<InterfaceLayer.DTO.Page>
+﻿@model List<Factory.DTO.PageDTO>
 
 @{ ViewData["Title"] = "Home Page"; }
 
@@ -16,19 +16,20 @@
             </div>
         </div>
         
-        <div class="col-8">
-            <a asp-action="Create" class="btn btn-success mb-3">Create</a>
+        <div class="col-7">
+            
             <div class="tab-content" id="nav-tabContent">
                 @foreach (var Page in Model)
                 {
                     <div class="tab-pane fade show" id="list-@Page.ID" role="tabpanel" aria-labelledby="list-@Page.ID-list">
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal-@Page.ID">
-                            Delete Page
-                        </button>
                         <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-ID="@Page.ID">
                             Edit Page
                         </a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal-@Page.ID">
+                            Delete Page
+                        </button>
+                        
                         <!-- Modal -->
                         <div class="modal fade" id="DeleteModal-@Page.ID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -50,6 +51,8 @@
                             </div>
                         </div>
 
+                        <!---->
+
                         <h1>@Page.Title</h1>
                         <br />
                         <p>@Page.Text</p>
@@ -58,6 +61,16 @@
 
                 }
             </div>
+        </div>
+
+        <div class="col-2 text-center">
+            <h2>Actions</h2>
+            <br />  
+            <a asp-action="Create" class="btn btn-success mb-3">Create</a>
+
+            <br />
+
+            <h2>Details</h2>
         </div>
     </div>
 </div>

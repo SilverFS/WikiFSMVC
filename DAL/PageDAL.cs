@@ -4,7 +4,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.SqlClient;
 using System.Text;
-using InterfaceLayer.DTO;
+using Factory;
+
 
 
 
@@ -21,9 +22,9 @@ namespace DAL
         }
 
 
-        public List<Page> GetallText()
+        public List<Factory.DTO.PageDTO> GetallText()
         {
-            List<Page> allText = new List<Page>();
+            List<Factory.DTO.PageDTO> allText = new List<Factory.DTO.PageDTO>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -34,7 +35,7 @@ namespace DAL
                     {
                         while (reader.Read())
                         {
-                            allText.Add(new Page
+                            allText.Add(new Factory.DTO.PageDTO
                             {
                                 ID = Convert.ToInt32(reader["ID"].ToString()),
                                 Title = reader["Title"].ToString(),
@@ -47,8 +48,12 @@ namespace DAL
             return allText;
         }
 
-
-        public Page GetPage(int ID)
+        /// <summary>
+        /// Useful for getting a single page.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>Returns the ID, Title and Text of a page.</returns>
+        public Factory.DTO.PageDTO GetPage(int ID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -60,7 +65,7 @@ namespace DAL
                     {
                         while (reader.Read())
                         {
-                            return new Page
+                            return new Factory.DTO.PageDTO
                             {
                                 ID = Convert.ToInt32(reader["ID"].ToString()),
                                 Title = reader["Title"].ToString(),
@@ -73,8 +78,11 @@ namespace DAL
             return null;
         }
 
-
-        public void CreatePage(Page page)
+        /// <summary>
+        /// Creates a page in the PageDAL.
+        /// </summary>
+        /// <param name="page"></param>
+        public void CreatePage(Factory.DTO.PageDTO page)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -117,7 +125,7 @@ namespace DAL
             }
         }
 
-        public void EditPage(Page page)
+        public void EditPage(Factory.DTO.PageDTO page)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
