@@ -1,4 +1,4 @@
-﻿@model List<Factory.DTO.PageDTO>
+﻿@model IndexPageViewModel
 
 @{ ViewData["Title"] = "Home Page"; }
 
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-2">
             <div class="list-group" id="list-tab" role="tablist">
-                @foreach (var Page in Model)
+                @foreach (var Page in Model.pages)
                 {
                     <a class="list-group-item list-group-item-action" id="list-@Page.ID-list" data-toggle="list" href="#list-@Page.ID" role="tab">@Page.Title</a>
                 }
@@ -19,7 +19,7 @@
         <div class="col-7">
             
             <div class="tab-content" id="nav-tabContent">
-                @foreach (var Page in Model)
+                @foreach (var Page in Model.pages)
                 {
                     <div class="tab-pane fade show" id="list-@Page.ID" role="tabpanel" aria-labelledby="list-@Page.ID-list">
 

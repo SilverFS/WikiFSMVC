@@ -8,6 +8,9 @@ namespace Factory
 {
     public class PageFactory
     {
-
+        public PageDAL CreatePage()
+        {
+            return new Page();
+        }
     }
 }

@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FactoryT\Factory.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -7,8 +7,10 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using MvcCore.Models;
-using DAL;
-using Factory;
+using BusinessLogic.Models;
+using BusinessLogic.Containers;
+using DAL.DALS;
+using MvcCore.Converters;
 
 namespace MvcCore.Controllers
 {
@@ -22,12 +24,14 @@ namespace MvcCore.Controllers
         {
             _logger = logger;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
-            textContainer = new DAL.PageDAL(_connectionString);
-
+            textContainer = new PageContainer(new PageDAL(_connectionString));
+            
         }
 
         
-        private DAL.PageDAL textContainer;
+        private PageContainer textContainer;
+        private PageViewConverter _PageViewConverter = new PageViewConverter();
+
 
         public IActionResult Page(int ID)
         {
@@ -35,7 +39,11 @@ namespace MvcCore.Controllers
         }
         public IActionResult Index()
         {
-            return View(textContainer.GetallText());
+            var model = new IndexPageViewModel
+            {
+                pages = _PageViewConverter.Convert_To_PageViewModel(textContainer.GetallText())
+            };
+            return View(model);
         }
         [HttpGet]
         public IActionResult Create()
@@ -43,7 +51,7 @@ namespace MvcCore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Factory.DTO.PageDTO page)
+        public IActionResult Create(PageModel page)
         {
             textContainer.CreatePage(page);
             return RedirectToAction("Index");
@@ -52,7 +60,8 @@ namespace MvcCore.Controllers
         [HttpGet]
         public IActionResult Delete(int ID)
         {
-            textContainer.DeletePage(ID);
+            PageModel page = textContainer.GetPage(ID);
+            page.Delete();
             return RedirectToAction("Index");
         }
 
@@ -62,10 +71,9 @@ namespace MvcCore.Controllers
             return View(textContainer.GetPage(ID));
         }
         
-        public IActionResult Edit(Factory.DTO.PageDTO page, int ID)
+        public IActionResult Edit(PageModel page)
         {
-            page.ID = ID;
-            textContainer.EditPage(page);
+            page.Update();
             return RedirectToAction("Index");
         }
 
