@@ -11,37 +11,36 @@ using BusinessLogic.Models;
 using BusinessLogic.Containers;
 using DAL.DALS;
 using MvcCore.Converters;
+using BusinessLogic.Interfaces;
 
 namespace MvcCore.Controllers
 {
     public class PageController : Controller
     {
-        private readonly ILogger<PageController> _logger;
-        private readonly string _connectionString;
-
-        public PageController(ILogger<PageController> logger,
-            IConfiguration configuration)
-        {
-            _logger = logger;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
-            textContainer = new PageContainer(new PageDAL(_connectionString));
-            
-        }
-
-        
-        private PageContainer textContainer;
+        // 
+        private readonly ILogicPageContainer _textContainer;
+        private readonly ILogicPage _textPage;
         private PageViewConverter _PageViewConverter = new PageViewConverter();
 
+        public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
+        {
+
+            //Injects PageDAL in PageContainer 
+            _textContainer = pageContainer;
+            _textPage = textPage;
+        }
+                
+        
 
         public IActionResult Page(int ID)
         {
-            return View(textContainer.GetPage(ID));
+            return View(_textContainer.GetPage(ID));
         }
         public IActionResult Index()
         {
             var model = new IndexPageViewModel
             {
-                pages = _PageViewConverter.Convert_To_PageViewModel(textContainer.GetallText())
+                pages = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetallText())
             };
             return View(model);
         }
@@ -51,29 +50,32 @@ namespace MvcCore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(PageModel page)
+        public IActionResult Create(PageViewModel page)
         {
-            textContainer.CreatePage(page);
+            var modelCreate = _PageViewConverter.Convert_To_PageModel(page);
+            _textContainer.CreatePage(modelCreate);
             return RedirectToAction("Index");
         }
+        
 
         [HttpGet]
         public IActionResult Delete(int ID)
-        {
-            PageModel page = textContainer.GetPage(ID);
-            page.Delete();
+        {            
+            _textPage.Delete(ID);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            return View(textContainer.GetPage(ID));
+            var edit = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetPage(ID));
+            return View(edit);
         }
         
-        public IActionResult Edit(PageModel page)
+        public IActionResult Edit(PageViewModel page)
         {
-            page.Update();
+            var updated = _PageViewConverter.Convert_To_PageModel(page);
+            _textPage.Update(updated);
             return RedirectToAction("Index");
         }
 

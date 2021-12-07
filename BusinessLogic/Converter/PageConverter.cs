@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using BusinessLogic.Models;
 using DAL.DTO;
+using DAL.Interfaces;
 
 namespace BusinessLogic.Converter
 {
     public class PageConverter
     {
+        
         //Method overloading :)
         /// <summary>
         /// Takes values from PageModel and converts them equal to values from PageDTO.
