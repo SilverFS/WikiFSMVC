@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.DTO
+namespace InterfaceLayer.DTO
 {
-    public class Page
+    public class PageDTO : IPageDTO
     {
         public int ID { get; set; }
         public string Title { get; set; }

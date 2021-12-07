@@ -1,3 +1,5 @@
+using DAL.DALS;
+using DAL.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using BusinessLogic.Interfaces;
+using BusinessLogic.Containers;
+using BusinessLogic.functions;
+using BusinessLogic.Converter;
 
 namespace MvcCore
 {
@@ -28,12 +35,20 @@ namespace MvcCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+
+            services.AddSingleton(sp => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
+            // This method defines which interface gets connected to which class
+            services.AddSingleton<IPage, PageDAL>();
+            services.AddSingleton<IPageContainer, PageDAL>();
+            services.AddSingleton<ILogicPageContainer, PageContainer>();
+            services.AddSingleton<ILogicPage, Page>();
+            services.AddSingleton<PageConverter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

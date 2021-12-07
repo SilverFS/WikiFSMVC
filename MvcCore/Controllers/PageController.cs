@@ -6,153 +6,43 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
 using MvcCore.Models;
-using DAL.DTO;
+using BusinessLogic.Models;
+using BusinessLogic.Containers;
+using DAL.DALS;
+using MvcCore.Converters;
+using BusinessLogic.Interfaces;
 
 namespace MvcCore.Controllers
 {
     public class PageController : Controller
     {
-        private readonly ILogger<PageController> _logger;
-        private readonly string _connectionString;
+        // 
+        private readonly ILogicPageContainer _textContainer;
+        private readonly ILogicPage _textPage;
+        private PageViewConverter _PageViewConverter = new PageViewConverter();
 
-        public PageController(ILogger<PageController> logger,   
-            IConfiguration configuration)
+        public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
         {
-            _logger = logger;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
-        }
 
-        public List<Page> GetallText()
+            //Injects PageDAL in PageContainer 
+            _textContainer = pageContainer;
+            _textPage = textPage;
+        }
+                
+        
+
+        public IActionResult Page(int ID)
         {
-            List<Page> allText = new List<Page>();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SELECT ID, Title, Text FROM TextTable", connection);
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            allText.Add(new Page
-                            {
-                                ID = Convert.ToInt32(reader["ID"].ToString()),
-                                Title = reader["Title"].ToString(),
-                                Text = reader["Text"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-            return allText;
+            return View(_textContainer.GetPage(ID));
         }
-
-        public Page GetPage(int ID)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SELECT ID, Title, Text FROM TextTable WHERE ID=@ID", connection);
-                {
-                    command.Parameters.AddWithValue("ID", ID);
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            return new Page
-                            {
-                                ID = Convert.ToInt32(reader["ID"].ToString()),
-                                Title = reader["Title"].ToString(),
-                                Text = reader["Text"].ToString()
-                            };
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        public void CreatePage(Page page)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO TextTable (Title, Text) VALUES (@Title, @Text)", connection);
-                {
-                    if (page.Title == null)
-                    {
-                        command.Parameters.AddWithValue("Title", DBNull.Value);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("Title", page.Title);
-                    }
-                    if (page.Text == null)
-                    {
-                        command.Parameters.AddWithValue("Text", DBNull.Value);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("Text", page.Text);
-                    }
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void DeletePage(int ID)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("DELETE FROM TextTable WHERE ID=@ID", connection);
-                {
-                    command.Parameters.AddWithValue("ID", ID);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-
-
-        public void EditPage(Page page)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("UPDATE TextTable SET Title= @Title, Text = @Text WHERE ID=@ID", connection);
-                {
-                    if (page.Title == null)
-                    {
-                        command.Parameters.AddWithValue("Title", DBNull.Value);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("Title", page.Title);
-                    }
-                    if (page.Text == null)
-                    {
-                        command.Parameters.AddWithValue("Text", DBNull.Value);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("Text", page.Text);
-                    }
-                    command.Parameters.AddWithValue("ID", page.ID);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-
         public IActionResult Index()
         {
-            return View(GetallText());
+            var model = new IndexPageViewModel
+            {
+                pages = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetallText())
+            };
+            return View(model);
         }
         [HttpGet]
         public IActionResult Create()
@@ -160,29 +50,32 @@ namespace MvcCore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Page page)
+        public IActionResult Create(PageViewModel page)
         {
-            CreatePage(page);
+            var modelCreate = _PageViewConverter.Convert_To_PageModel(page);
+            _textContainer.CreatePage(modelCreate);
             return RedirectToAction("Index");
         }
+        
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int ID)
-        {
-            DeletePage(ID);
+        {            
+            _textPage.Delete(ID);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            return View(GetPage(ID));
+            var edit = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetPage(ID));
+            return View(edit);
         }
         
-        public IActionResult Edit(Page page, int ID)
+        public IActionResult Edit(PageViewModel page)
         {
-            page.ID = ID;
-            EditPage(page);
+            var updated = _PageViewConverter.Convert_To_PageModel(page);
+            _textPage.Update(updated);
             return RedirectToAction("Index");
         }
 
