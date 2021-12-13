@@ -10,7 +10,7 @@ namespace BusinessLogic.Converter
 {
     public class PageConverter
     {
-        
+
         //Method overloading :)
         /// <summary>
         /// Takes values from PageModel and converts them equal to values from PageDTO.
@@ -24,6 +24,8 @@ namespace BusinessLogic.Converter
                 ID = pageModel.ID,
                 Title = pageModel.Title,
                 Text = pageModel.Text,
+                created_at = pageModel.created_at,
+                updated_at = pageModel.updated_at,
             };
         }
 
@@ -49,6 +51,8 @@ namespace BusinessLogic.Converter
                 ID = dTO_PageModel.ID,
                 Title = dTO_PageModel.Title,
                 Text = dTO_PageModel.Text,
+                created_at = dTO_PageModel.created_at,
+                updated_at = dTO_PageModel.updated_at,
             };
         }
 

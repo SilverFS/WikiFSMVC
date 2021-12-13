@@ -42,7 +42,9 @@ namespace MvcCore
             services.AddRazorPages();
 
 
+            // Fetches the connectionString for the injection with SqlConnection
             services.AddSingleton(sp => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
+
             // This method defines which interface gets connected to which class
             services.AddSingleton<IPage, PageDAL>();
             services.AddSingleton<IPageContainer, PageDAL>();

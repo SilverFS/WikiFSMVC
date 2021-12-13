@@ -23,9 +23,7 @@ namespace MvcCore.Controllers
         private PageViewConverter _PageViewConverter = new PageViewConverter();
 
         public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
-        {
-
-            //Injects PageDAL in PageContainer 
+        { 
             _textContainer = pageContainer;
             _textPage = textPage;
         }
