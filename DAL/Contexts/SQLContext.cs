@@ -6,16 +6,18 @@ using System.Data.SqlClient;
 using System.Text;
 using DAL.Interfaces;
 using DAL.DTO;
-using MySql.Data.MySqlClient;
+
+
+
 
 namespace DAL.Contexts
 {
-    public class MySQLContext : IPageContainer, IPage
+    public class SQLContext : IPageContainer, IPage
     {
 
-        private MySqlConnection _connection;
+        private SqlConnection _connection;
 
-        public MySQLContext(MySqlConnection configuration)
+        public SQLContext(SqlConnection configuration)
         {
             _connection = configuration;
         }
@@ -28,18 +30,22 @@ namespace DAL.Contexts
 
 
             _connection.Open();
-            using MySqlCommand command = new MySqlCommand("SELECT page_id, title, text, created_at, updated_at FROM pages", _connection);
-            MySqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            SqlCommand command = new SqlCommand("SELECT page_id, title, text, created_at, updated_at FROM pages", _connection);
             {
-                allText.Add(new PageDTO
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    ID = Convert.ToInt32(reader["page_id"].ToString()),
-                    Title = reader["title"].ToString(),
-                    Text = reader["text"].ToString(),
-                    created_at = (DateTime)reader["created_at"],
-                    updated_at = (DateTime)reader["updated_at"]
-                });
+                    while (reader.Read())
+                    {
+                        allText.Add(new PageDTO
+                        {
+                            ID = Convert.ToInt32(reader["page_id"].ToString()),
+                            Title = reader["title"].ToString(),
+                            Text = reader["text"].ToString(),
+                            created_at = (DateTime)reader["created_at"],
+                            updated_at = (DateTime)reader["updated_at"]
+                        });
+                    }
+                }
             }
             _connection.Close();
             return allText;
@@ -55,24 +61,24 @@ namespace DAL.Contexts
 
 
             _connection.Open();
-            using MySqlCommand command = new MySqlCommand("SELECT page_id, title, text FROM pages WHERE page_id=@ID", _connection);
-            MySqlDataReader reader = command.ExecuteReader();
-
-            command.Parameters.AddWithValue("ID", ID);
+            SqlCommand command = new SqlCommand("SELECT page_id, title, text FROM pages WHERE page_id=@ID", _connection);
             {
-                while (reader.Read())
+                command.Parameters.AddWithValue("ID", ID);
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    PageDTO page = new PageDTO
+                    while (reader.Read())
                     {
-                        ID = Convert.ToInt32(reader["page_id"].ToString()),
-                        Title = reader["title"].ToString(),
-                        Text = reader["text"].ToString()
-                    };
-                    _connection.Close();
-                    return page;
+                        PageDTO page = new PageDTO
+                        {
+                            ID = Convert.ToInt32(reader["page_id"].ToString()),
+                            Title = reader["title"].ToString(),
+                            Text = reader["text"].ToString()
+                        };
+                        _connection.Close();
+                        return page;
+                    }
                 }
             }
-
             _connection.Close();
             return null;
         }
@@ -85,7 +91,7 @@ namespace DAL.Contexts
         {
 
             _connection.Open();
-            MySqlCommand command = new MySqlCommand("INSERT INTO pages (title, text, created_at, updated_at) VALUES (@Title, @Text, @created_at, @updated_at)", _connection);
+            SqlCommand command = new SqlCommand("INSERT INTO pages (title, text, created_at, updated_at) VALUES (@Title, @Text, @created_at, @updated_at)", _connection);
             {
                 if (page.Title == null)
                 {
@@ -117,7 +123,7 @@ namespace DAL.Contexts
         {
 
             _connection.Open();
-            MySqlCommand command = new MySqlCommand("DELETE FROM pages WHERE page_id=@ID", _connection);
+            SqlCommand command = new SqlCommand("DELETE FROM pages WHERE page_id=@ID", _connection);
             {
                 command.Parameters.AddWithValue("ID", ID);
 
@@ -130,7 +136,7 @@ namespace DAL.Contexts
         {
 
             _connection.Open();
-            MySqlCommand command = new MySqlCommand("UPDATE pages SET title= @Title, text = @Text, updated_at= @updated_at WHERE page_id=@ID", _connection);
+            SqlCommand command = new SqlCommand("UPDATE pages SET title= @Title, text = @Text, updated_at= @updated_at WHERE page_id=@ID", _connection);
             {
                 if (page.Title == null)
                 {
