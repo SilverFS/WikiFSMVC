@@ -46,11 +46,13 @@ namespace MvcCore
             services.AddSingleton(sp => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
 
             // This method defines which interface gets connected to which class
-            services.AddSingleton<IPage, PageDAL>();
-            services.AddSingleton<IPageContainer, PageDAL>();
+            services.AddSingleton<IPage, MySQLContext>();
+            services.AddSingleton<IPageContainer, MySQLContext>();
             services.AddSingleton<ILogicPageContainer, PageContainer>();
             services.AddSingleton<ILogicPage, Page>();
             services.AddSingleton<PageConverter>();
+
+            // change what type of database to use here!
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
