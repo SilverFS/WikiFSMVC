@@ -20,6 +20,8 @@ namespace MvcCore.Converters
                 ID = pageModel.ID,
                 Title = pageModel.Title,
                 Text = pageModel.Text,
+                created_at = pageModel.created_at,
+                updated_at = pageModel.updated_at,
             };
         }
 
@@ -45,6 +47,8 @@ namespace MvcCore.Converters
                 ID = pageView.ID,
                 Title = pageView.Title,
                 Text = pageView.Text,
+                created_at = pageView.created_at,
+                updated_at = pageView.updated_at,
             };
         }
 

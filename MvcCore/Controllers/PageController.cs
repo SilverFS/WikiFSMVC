@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using MvcCore.Models;
 using BusinessLogic.Models;
 using BusinessLogic.Containers;
-using DAL.DALS;
+using DAL.Contexts;
 using MvcCore.Converters;
 using BusinessLogic.Interfaces;
 
@@ -24,13 +24,11 @@ namespace MvcCore.Controllers
 
         public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
         {
-
-            //Injects PageDAL in PageContainer 
             _textContainer = pageContainer;
             _textPage = textPage;
         }
-                
-        
+
+
 
         public IActionResult Page(int ID)
         {
@@ -56,11 +54,11 @@ namespace MvcCore.Controllers
             _textContainer.CreatePage(modelCreate);
             return RedirectToAction("Index");
         }
-        
+
 
         [HttpGet]
         public IActionResult Delete(int ID)
-        {            
+        {
             _textPage.Delete(ID);
             return RedirectToAction("Index");
         }
@@ -71,7 +69,7 @@ namespace MvcCore.Controllers
             var edit = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetPage(ID));
             return View(edit);
         }
-        
+
         public IActionResult Edit(PageViewModel page)
         {
             var updated = _PageViewConverter.Convert_To_PageModel(page);

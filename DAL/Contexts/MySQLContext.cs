@@ -6,18 +6,16 @@ using System.Data.SqlClient;
 using System.Text;
 using DAL.Interfaces;
 using DAL.DTO;
+using MySql.Data.MySqlClient;
 
-
-
-
-namespace DAL.DALS
+namespace DAL.Contexts
 {
-    public class PageDAL : IPageContainer, IPage
+    public class MySQLContext : IPageContainer, IPage
     {
 
-        private SqlConnection _connection;
+        private MySqlConnection _connection;
 
-        public PageDAL(SqlConnection configuration)
+        public MySQLContext(MySqlConnection configuration)
         {
             _connection = configuration;
         }
@@ -27,23 +25,21 @@ namespace DAL.DALS
         {
             List<PageDTO> allText = new List<PageDTO>();
 
-            
-            
+
+
             _connection.Open();
-            SqlCommand command = new SqlCommand("SELECT ID, Title, Text FROM TextTable", _connection);
+            using MySqlCommand command = new MySqlCommand("SELECT page_id, title, text, created_at, updated_at FROM pages", _connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                using (SqlDataReader reader = command.ExecuteReader())
+                allText.Add(new PageDTO
                 {
-                    while (reader.Read())
-                    {
-                        allText.Add(new PageDTO
-                        {
-                            ID = Convert.ToInt32(reader["ID"].ToString()),
-                            Title = reader["Title"].ToString(),
-                            Text = reader["Text"].ToString()
-                        });
-                    }
-                }
+                    ID = Convert.ToInt32(reader["page_id"].ToString()),
+                    Title = reader["title"].ToString(),
+                    Text = reader["text"].ToString(),
+                    created_at = (DateTime)reader["created_at"],
+                    updated_at = (DateTime)reader["updated_at"]
+                });
             }
             _connection.Close();
             return allText;
@@ -56,27 +52,27 @@ namespace DAL.DALS
         /// <returns>Returns the ID, Title and Text of a page.</returns>
         public PageDTO GetPage(int ID)
         {
-            
-            
+
+
             _connection.Open();
-            SqlCommand command = new SqlCommand("SELECT ID, Title, Text FROM TextTable WHERE ID=@ID", _connection);
+            using MySqlCommand command = new MySqlCommand("SELECT page_id, title, text FROM pages WHERE page_id=@ID", _connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            command.Parameters.AddWithValue("ID", ID);
             {
-                command.Parameters.AddWithValue("ID", ID);
-                using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    PageDTO page = new PageDTO
                     {
-                        PageDTO page = new PageDTO
-                        {
-                            ID = Convert.ToInt32(reader["ID"].ToString()),
-                            Title = reader["Title"].ToString(),
-                            Text = reader["Text"].ToString()
-                        };
-                        _connection.Close();
-                        return page;
-                    }
+                        ID = Convert.ToInt32(reader["page_id"].ToString()),
+                        Title = reader["title"].ToString(),
+                        Text = reader["text"].ToString()
+                    };
+                    _connection.Close();
+                    return page;
                 }
             }
+
             _connection.Close();
             return null;
         }
@@ -87,9 +83,9 @@ namespace DAL.DALS
         /// <param name="page"></param>
         public void CreatePage(PageDTO page)
         {
-                        
+
             _connection.Open();
-            SqlCommand command = new SqlCommand("INSERT INTO TextTable (Title, Text) VALUES (@Title, @Text)", _connection);
+            MySqlCommand command = new MySqlCommand("INSERT INTO pages (title, text, created_at, updated_at) VALUES (@Title, @Text, @created_at, @updated_at)", _connection);
             {
                 if (page.Title == null)
                 {
@@ -107,6 +103,10 @@ namespace DAL.DALS
                 {
                     command.Parameters.AddWithValue("Text", page.Text);
                 }
+
+                command.Parameters.AddWithValue("created_at", DateTime.Now);
+                command.Parameters.AddWithValue("updated_at", DateTime.Now);
+
                 command.ExecuteNonQuery();
             }
             _connection.Close();
@@ -115,9 +115,9 @@ namespace DAL.DALS
 
         public void DeletePage(int ID)
         {
-                        
+
             _connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM TextTable WHERE ID=@ID", _connection);
+            MySqlCommand command = new MySqlCommand("DELETE FROM pages WHERE page_id=@ID", _connection);
             {
                 command.Parameters.AddWithValue("ID", ID);
 
@@ -128,9 +128,9 @@ namespace DAL.DALS
 
         public void EditPage(PageDTO page)
         {
-            
+
             _connection.Open();
-            SqlCommand command = new SqlCommand("UPDATE TextTable SET Title= @Title, Text = @Text WHERE ID=@ID", _connection);
+            MySqlCommand command = new MySqlCommand("UPDATE pages SET title= @Title, text = @Text, updated_at= @updated_at WHERE page_id=@ID", _connection);
             {
                 if (page.Title == null)
                 {
@@ -149,6 +149,7 @@ namespace DAL.DALS
                     command.Parameters.AddWithValue("Text", page.Text);
                 }
                 command.Parameters.AddWithValue("ID", page.ID);
+                command.Parameters.AddWithValue("updated_at", DateTime.Now);
 
                 command.ExecuteNonQuery();
             }

@@ -1,4 +1,4 @@
-using DAL.DALS;
+using DAL.Contexts;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +19,7 @@ using BusinessLogic.Interfaces;
 using BusinessLogic.Containers;
 using BusinessLogic.functions;
 using BusinessLogic.Converter;
+using MySql.Data.MySqlClient;
 
 namespace MvcCore
 {
@@ -35,20 +36,31 @@ namespace MvcCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
 
-            services.AddSingleton(sp => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
-            // This method defines which interface gets connected to which class
-            services.AddSingleton<IPage, PageDAL>();
-            services.AddSingleton<IPageContainer, PageDAL>();
+            // Fetches the connectionString for the injection with SqlConnection
+            services.AddSingleton(sp => new SqlConnection(Configuration.GetConnectionString("SQLConnection")));
+            //services.AddSingleton(sp => new MySqlConnection(Configuration.GetConnectionString("MySQLConnection")));
+
+
+            // These method defines which interface gets connected to which class
             services.AddSingleton<ILogicPageContainer, PageContainer>();
             services.AddSingleton<ILogicPage, Page>();
             services.AddSingleton<PageConverter>();
+
+            // sql
+            services.AddSingleton<IPage, SQLContext>();
+            services.AddSingleton<IPageContainer, SQLContext>();
+
+            // mysql
+            //services.AddSingleton<IPage, MySQLContext>();
+            //services.AddSingleton<IPageContainer, MySQLContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
