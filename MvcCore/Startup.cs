@@ -20,6 +20,7 @@ using BusinessLogic.Containers;
 using BusinessLogic.functions;
 using BusinessLogic.Converter;
 using MySql.Data.MySqlClient;
+using MvcCore.Converters;
 
 namespace MvcCore
 {
@@ -51,11 +52,16 @@ namespace MvcCore
             // These method defines which interface gets connected to which class
             services.AddSingleton<ILogicPageContainer, PageContainer>();
             services.AddSingleton<ILogicPage, Page>();
+            services.AddSingleton<ILogicUserContainer, UserContainer>();
+            services.AddSingleton<ILogicUser, User>();
             services.AddSingleton<PageConverter>();
+            services.AddSingleton<UserConverter>();
 
             // sql
-            services.AddSingleton<IPage, SQLContext>();
-            services.AddSingleton<IPageContainer, SQLContext>();
+            services.AddSingleton<IPage, SQLPageContext>();
+            services.AddSingleton<IPageContainer, SQLPageContext>();
+            services.AddSingleton<IUser, SQLUserContext>();
+            services.AddSingleton<IUserContainer, SQLUserContext>();
 
             // mysql
             //services.AddSingleton<IPage, MySQLContext>();

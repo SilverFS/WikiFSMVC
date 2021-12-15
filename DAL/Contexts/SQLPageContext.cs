@@ -12,12 +12,12 @@ using DAL.DTO;
 
 namespace DAL.Contexts
 {
-    public class SQLContext : IPageContainer, IPage
+    public class SQLPageContext : IPageContainer, IPage
     {
 
         private SqlConnection _connection;
 
-        public SQLContext(SqlConnection configuration)
+        public SQLPageContext(SqlConnection configuration)
         {
             _connection = configuration;
         }

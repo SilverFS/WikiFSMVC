@@ -1,0 +1,62 @@
+﻿@using Humanizer
+@model UserViewModel
+
+@{ ViewData["Title"] = "Home Page"; }
+
+
+
+<section>
+  <div class="container">
+
+    @Html.Raw(ViewBag.message)
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+        <div class="row">
+          <div class="col text-center">
+            <h1>Register</h1>
+            <p class="text-h3">Please fill in your credit card number, the expiration date and the 3 digits on the back pls :3 U can definitely trust us! </p>
+          </div>
+        </div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row align-items-center">            
+                <div class="col mt-4">              
+                    <input required asp-for="UserName" type="text" class="form-control" placeholder="Username">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row align-items-center mt-4">
+              <div class="col">
+                <input required asp-for="Email" type="email" class="form-control" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="row align-items-center mt-4">
+              <div class="col">
+                <input required asp-for="Password" type="password" class="form-control" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+              </div>
+              <div class="col">
+                <input @*asp-for="PasswordConfirm" *@type="password" class="form-control" placeholder="Confirm Password">
+                <span @*asp-validation-for="PasswordConfirm"*@ class="text-danger"></span>
+                <input hidden asp-for="created_at" class="form-control">
+            </div>
+            </div>
+            <div class="row justify-content-start mt-4">
+              <div class="col">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                        I have never read a <a href="https://thatsthefinger.com/">Terms and Conditions</a> in my life!
+                  </label>
+                </div>
+                <br />
+                <button class="btn btn-primary type="submit" value="Create" mt-4">Submit</button>
+              </div>
+            </div>
+        </form>  
+      </div>
+    </div>
+  </div>
+</section>

@@ -10,12 +10,12 @@ using MySql.Data.MySqlClient;
 
 namespace DAL.Contexts
 {
-    public class MySQLContext : IPageContainer, IPage
+    public class MySQLPageContext : IPageContainer, IPage
     {
 
         private MySqlConnection _connection;
 
-        public MySQLContext(MySqlConnection configuration)
+        public MySQLPageContext(MySqlConnection configuration)
         {
             _connection = configuration;
         }
