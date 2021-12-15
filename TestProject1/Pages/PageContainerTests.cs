@@ -1,13 +1,51 @@
-﻿using System;
+﻿using BusinessLogic.Containers;
+using BusinessLogic.Converter;
+using BusinessLogic.Models;
+using DAL.DTO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using WikiFSUnitTests.Mockups;
 
 namespace WikiFSUnitTests.Pages
 {
+    [TestClass]
     public class PageContainerTests
     {
-        // Arrange
-        // Act
-        // Assert
+        [TestMethod]
+        public void ShouldGetallTextWhenDalProvidesList()
+        {
+            // Arrange
+            PageDALMockup mockup = new PageDALMockup();
+            PageConverter converter = new PageConverter();
+            PageContainer pageContainer = new PageContainer(mockup, converter);
+            List<PageModel> list;
+
+            // Act
+            list = pageContainer.GetallText();
+
+            // Assert
+            Assert.IsNotNull(list);
+        }
+
+        [TestMethod]
+        public void ShouldGetSinglePageWhenDalProvidesFunction()
+        {
+            // Arrange
+            PageDALMockup mockup = new PageDALMockup();
+            PageConverter converter = new PageConverter();
+            PageContainer pageContainer = new PageContainer(mockup, converter);
+            PageModel pageModel;
+
+            // Act
+            pageModel = pageContainer.GetPage(69);
+
+            // Assert
+            Assert.IsNotNull(pageModel);
+            Assert.AreEqual(pageModel.ID, 69);
+        }
+
+
     }
 }

@@ -25,12 +25,19 @@ namespace WikiFSUnitTests.Mockups
 
         public List<PageDTO> GetallText()
         {
-            throw new NotImplementedException();
+            List<PageDTO> list = new List<PageDTO>();
+            list.Add(new PageDTO());
+            list.Add(new PageDTO());
+            return list;
         }
 
         public PageDTO GetPage(int ID)
         {
-            throw new NotImplementedException();
+            PageDTO page = new PageDTO
+            {
+                ID = ID
+            };
+            return page;
         }
     }
 }
