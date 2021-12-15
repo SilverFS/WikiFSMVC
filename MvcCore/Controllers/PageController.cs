@@ -43,12 +43,12 @@ namespace MvcCore.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateUser()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(PageViewModel page)
+        public IActionResult CreateUser(PageViewModel page)
         {
             var modelCreate = _PageViewConverter.Convert_To_PageModel(page);
             _textContainer.CreatePage(modelCreate);
