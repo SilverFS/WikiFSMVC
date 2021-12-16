@@ -1,11 +1,8 @@
 ﻿using BusinessLogic.Containers;
 using BusinessLogic.Converter;
 using BusinessLogic.Models;
-using DAL.DTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using WikiFSUnitTests.Mockups;
 
 namespace WikiFSUnitTests.Pages

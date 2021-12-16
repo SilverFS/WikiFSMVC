@@ -1,17 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
-using MvcCore.Models;
-using BusinessLogic.Models;
-using BusinessLogic.Containers;
-using DAL.Contexts;
+﻿using BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using MvcCore.Converters;
-using BusinessLogic.Interfaces;
+using MvcCore.Models;
+using System.Diagnostics;
 
 namespace MvcCore.Controllers
 {
@@ -20,8 +11,8 @@ namespace MvcCore.Controllers
         // 
         private readonly ILogicPageContainer _textContainer;
         private readonly ILogicPage _textPage;
-        private PageViewConverter _PageViewConverter = new PageViewConverter();
-        private CommentViewConverter _CommentViewConverter = new CommentViewConverter();
+        private readonly PageViewConverter _PageViewConverter = new PageViewConverter();
+        private readonly CommentViewConverter _CommentViewConverter = new CommentViewConverter();
 
         public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
         {

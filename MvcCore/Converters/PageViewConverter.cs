@@ -1,5 +1,4 @@
-﻿using BusinessLogic.Converter;
-using BusinessLogic.Models;
+﻿using BusinessLogic.Models;
 using MvcCore.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace MvcCore.Converters
 {
     public class PageViewConverter
     {
-        private CommentViewConverter _CommentViewConverter = new CommentViewConverter();
+        private readonly CommentViewConverter _CommentViewConverter = new CommentViewConverter();
 
 
 

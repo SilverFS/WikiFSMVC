@@ -1,16 +1,13 @@
-﻿using System;
+﻿using BusinessLogic.Models;
+using DAL.DTO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using BusinessLogic.Models;
-using DAL.DTO;
-using DAL.Interfaces;
 
 namespace BusinessLogic.Converter
 {
     public class PageConverter
     {
-        private CommentConverter _CommentConverter = new CommentConverter();
+        private readonly CommentConverter _CommentConverter = new CommentConverter();
 
         //Method overloading :)
         /// <summary>

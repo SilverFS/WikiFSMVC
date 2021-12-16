@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DAL.Interfaces;
-using BusinessLogic.Models;
-using BusinessLogic.Converter;
-using System.Linq;
+﻿using BusinessLogic.Converter;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Models;
+using DAL.Interfaces;
+using System;
 
 namespace BusinessLogic.Containers
 {
     public class CommentContainer : ILogicCommentContainer
     {
-        private ICommentContainer _Comments;
-        private CommentConverter _CommentConverter;
+        private readonly ICommentContainer _Comments;
+        private readonly CommentConverter _CommentConverter;
         /// <summary>
         /// Depends on and expects given interfaces(IPageContainer) which realizes within the given DAL
         /// </summary>

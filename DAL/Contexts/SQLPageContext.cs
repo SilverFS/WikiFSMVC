@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
-using System.Text;
+﻿using DAL.DTO;
 using DAL.Interfaces;
-using DAL.DTO;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 
 
@@ -15,7 +12,7 @@ namespace DAL.Contexts
     public class SQLPageContext : IPageContainer, IPage
     {
 
-        private SqlConnection _connection;
+        private readonly SqlConnection _connection;
 
         public SQLPageContext(SqlConnection configuration)
         {

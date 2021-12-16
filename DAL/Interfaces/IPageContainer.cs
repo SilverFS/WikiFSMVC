@@ -1,7 +1,5 @@
-﻿using System;
+﻿using DAL.DTO;
 using System.Collections.Generic;
-using System.Text;
-using DAL.DTO;
 
 namespace DAL.Interfaces
 {
@@ -10,6 +8,6 @@ namespace DAL.Interfaces
         List<PageDTO> GetallText();
         PageDTO GetPage(int ID);
         void CreatePage(PageDTO page);
-        
+
     }
 }

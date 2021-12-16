@@ -1,17 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
-using MvcCore.Models;
-using BusinessLogic.Models;
-using BusinessLogic.Containers;
-using DAL.Contexts;
+﻿using BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using MvcCore.Converters;
-using BusinessLogic.Interfaces;
+using MvcCore.Models;
 
 namespace MvcCore.Controllers
 {
@@ -19,7 +9,7 @@ namespace MvcCore.Controllers
     {
         // 
         private readonly ILogicCommentContainer _commentContainer;
-        private CommentViewConverter _CommentViewConverter = new CommentViewConverter();
+        private readonly CommentViewConverter _CommentViewConverter = new CommentViewConverter();
 
         public CommentController(ILogicCommentContainer commentContainer)
         {

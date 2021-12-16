@@ -1,26 +1,19 @@
+using BusinessLogic.Containers;
+using BusinessLogic.Converter;
+using BusinessLogic.functions;
+using BusinessLogic.Interfaces;
 using DAL.Contexts;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MvcCore.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using BusinessLogic.Interfaces;
-using BusinessLogic.Containers;
-using BusinessLogic.functions;
-using BusinessLogic.Converter;
-using MySql.Data.MySqlClient;
 using MvcCore.Converters;
+using MvcCore.Data;
+using System.Data.SqlClient;
 
 namespace MvcCore
 {

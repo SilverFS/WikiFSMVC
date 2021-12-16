@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DAL.Interfaces;
-using BusinessLogic.Models;
-using BusinessLogic.Converter;
-using System.Linq;
+﻿using BusinessLogic.Converter;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Models;
+using DAL.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace BusinessLogic.Containers
 {
     public class PageContainer : ILogicPageContainer
     {
-        private IPageContainer _Pages;
-        private PageConverter _PageConverter;
+        private readonly IPageContainer _Pages;
+        private readonly PageConverter _PageConverter;
         /// <summary>
         /// Depends on and expects given interfaces(IPageContainer) which realizes within the given DAL
         /// </summary>

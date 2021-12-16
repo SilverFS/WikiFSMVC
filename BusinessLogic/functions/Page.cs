@@ -2,17 +2,13 @@
 using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
 using DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.functions
 {
     public class Page : ILogicPage
     {
-        private IPage _Page;
-
-        PageConverter _PageConverter;
+        private readonly IPage _Page;
+        readonly PageConverter _PageConverter;
         /// <summary>
         /// Depends on and expects given interfaces(IPage) which realizes within the given DAL. So essentially, this class (Page) needs IPage and PageConverter to work.
         /// </summary>

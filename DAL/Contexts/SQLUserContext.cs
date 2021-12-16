@@ -1,16 +1,13 @@
 ﻿using DAL.DTO;
 using DAL.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 
 namespace DAL.Contexts
 {
     public class SQLUserContext : IUser, IUserContainer
     {
-        private SqlConnection _connection;
+        private readonly SqlConnection _connection;
 
         public SQLUserContext(SqlConnection configuration)
         {

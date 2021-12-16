@@ -1,18 +1,14 @@
-﻿using BusinessLogic.Converter;
-using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Interfaces;
 using DAL.Interfaces;
 using MvcCore.Converters;
 using MvcCore.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Containers
 {
     public class UserContainer : ILogicUserContainer
     {
-        private IUserContainer _User;
-        private UserConverter _UserConverter;
+        private readonly IUserContainer _User;
+        private readonly UserConverter _UserConverter;
         /// <summary>
         /// Depends on and expects given interfaces(IPageContainer) which realizes within the given DAL
         /// </summary>

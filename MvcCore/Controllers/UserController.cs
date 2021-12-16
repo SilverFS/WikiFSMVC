@@ -10,7 +10,7 @@ namespace MvcCore.Controllers
         // 
         private readonly ILogicUserContainer _UserContainer;
         private readonly ILogicUser _CredUser;
-        private UserViewConverter _UserViewConverter = new UserViewConverter();
+        private readonly UserViewConverter _UserViewConverter = new UserViewConverter();
 
         public UserController(ILogicUserContainer userContainer, ILogicUser credUser)
         {
