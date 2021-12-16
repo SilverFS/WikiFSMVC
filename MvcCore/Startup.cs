@@ -54,14 +54,17 @@ namespace MvcCore
             services.AddSingleton<ILogicPage, Page>();
             services.AddSingleton<ILogicUserContainer, UserContainer>();
             services.AddSingleton<ILogicUser, User>();
+            services.AddSingleton<ILogicCommentContainer, CommentContainer>();
             services.AddSingleton<PageConverter>();
             services.AddSingleton<UserConverter>();
+            services.AddSingleton<CommentConverter>();
 
             // sql
             services.AddSingleton<IPage, SQLPageContext>();
             services.AddSingleton<IPageContainer, SQLPageContext>();
             services.AddSingleton<IUser, SQLUserContext>();
             services.AddSingleton<IUserContainer, SQLUserContext>();
+            services.AddSingleton<ICommentContainer, SQLCommentContext>();
 
             // mysql
             //services.AddSingleton<IPage, MySQLContext>();

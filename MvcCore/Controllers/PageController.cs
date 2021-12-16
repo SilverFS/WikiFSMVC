@@ -19,12 +19,15 @@ namespace MvcCore.Controllers
     {
         // 
         private readonly ILogicPageContainer _textContainer;
+        private readonly ILogicCommentContainer _commentContainer;
         private readonly ILogicPage _textPage;
         private PageViewConverter _PageViewConverter = new PageViewConverter();
+        private CommentViewConverter _CommentViewConverter = new CommentViewConverter();
 
-        public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
+        public PageController(ILogicPageContainer pageContainer, ILogicCommentContainer commentContainer, ILogicPage textPage)
         {
             _textContainer = pageContainer;
+            _commentContainer = commentContainer;
             _textPage = textPage;
         }
 
@@ -38,17 +41,18 @@ namespace MvcCore.Controllers
         {
             var model = new IndexPageViewModel
             {
-                pages = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetallText())
+                pages = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetallText()),
+                comments = _CommentViewConverter.Convert_To_CommentViewModel(_commentContainer.GetallComments())
             };
             return View(model);
         }
         [HttpGet]
-        public IActionResult CreateUser()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult CreateUser(PageViewModel page)
+        public IActionResult Create(PageViewModel page)
         {
             var modelCreate = _PageViewConverter.Convert_To_PageModel(page);
             _textContainer.CreatePage(modelCreate);

@@ -35,9 +35,9 @@ namespace DAL.Contexts
                         {
                             ID = Convert.ToInt32(reader["comment_id"].ToString()),
                             Text = reader["text"].ToString(),
-                            created_at = (DateTime)reader["created_at"],
-                            user_id = Convert.ToInt32(reader["user_id"].ToString()),
-                            page_id = Convert.ToInt32(reader["page_id"].ToString())
+                            //created_at = (DateTime)reader["created_at"],
+                            //user_id = Convert.ToInt32(reader["user_id"].ToString()),
+                            //page_id = Convert.ToInt32(reader["page_id"].ToString())
 
                         });
                     }
