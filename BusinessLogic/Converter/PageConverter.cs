@@ -10,6 +10,7 @@ namespace BusinessLogic.Converter
 {
     public class PageConverter
     {
+        private CommentConverter _CommentConverter = new CommentConverter();
 
         //Method overloading :)
         /// <summary>
@@ -46,7 +47,7 @@ namespace BusinessLogic.Converter
         /// <returns></returns>
         public PageModel Convert_To_PageModel(PageDTO dTO_PageModel)
         {
-            return new PageModel
+            var thisPageModel = new PageModel
             {
                 ID = dTO_PageModel.ID,
                 Title = dTO_PageModel.Title,
@@ -54,6 +55,11 @@ namespace BusinessLogic.Converter
                 created_at = dTO_PageModel.created_at,
                 updated_at = dTO_PageModel.updated_at,
             };
+            if (dTO_PageModel.comments != null)
+            {
+                thisPageModel.comments = _CommentConverter.Convert_To_CommentModel(dTO_PageModel.comments);
+            }
+            return thisPageModel;
         }
 
         /// <summary>

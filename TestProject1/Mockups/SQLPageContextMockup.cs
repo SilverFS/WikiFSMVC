@@ -6,11 +6,17 @@ using System.Text;
 
 namespace WikiFSUnitTests.Mockups
 {
-    public class PageDALMockup : IPage, IPageContainer
+    public class SQLPageContextMockup : IPage, IPageContainer
     {
         public void CreatePage(PageDTO page)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            PageDTO pageDTO = new PageDTO();
+            pageDTO.Title = page.Title;
+            pageDTO.Text = page.Text;
+            pageDTO.created_at = DateTime.Now;
+            pageDTO.updated_at = DateTime.Now;
+            return;
         }
 
         public void DeletePage(int ID)
@@ -25,7 +31,9 @@ namespace WikiFSUnitTests.Mockups
 
         public List<PageDTO> GetallText()
         {
+            // create an empty dto list
             List<PageDTO> list = new List<PageDTO>();
+            // add empty pageDTO's
             list.Add(new PageDTO());
             list.Add(new PageDTO());
             return list;

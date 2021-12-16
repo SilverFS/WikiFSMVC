@@ -17,7 +17,7 @@ namespace WikiFSUnitTests.Pages
         public void ShouldGetallTextWhenDalProvidesList()
         {
             // Arrange
-            PageDALMockup mockup = new PageDALMockup();
+            SQLPageContextMockup mockup = new SQLPageContextMockup();
             PageConverter converter = new PageConverter();
             PageContainer pageContainer = new PageContainer(mockup, converter);
             List<PageModel> list;
@@ -33,7 +33,7 @@ namespace WikiFSUnitTests.Pages
         public void ShouldGetSinglePageWhenDalProvidesFunction()
         {
             // Arrange
-            PageDALMockup mockup = new PageDALMockup();
+            SQLPageContextMockup mockup = new SQLPageContextMockup();
             PageConverter converter = new PageConverter();
             PageContainer pageContainer = new PageContainer(mockup, converter);
             PageModel pageModel;
@@ -46,6 +46,18 @@ namespace WikiFSUnitTests.Pages
             Assert.AreEqual(pageModel.ID, 69);
         }
 
-
+        [TestMethod]
+        public void ShouldCreatePage()
+        {
+            // Arrange
+            SQLPageContextMockup mockup = new SQLPageContextMockup();
+            PageConverter converter = new PageConverter();
+            PageContainer pageContainer = new PageContainer(mockup, converter);
+            PageModel pageModel;
+            // Act
+            //pageModel = pageContainer.CreatePage();
+            // Assert
+            Assert.IsNull(pageModel);
+        }
     }
 }

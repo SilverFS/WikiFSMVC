@@ -26,13 +26,13 @@ namespace MvcCore.Converters
         }
 
         /// <summary>
-        /// Using LINQ, this method converts a list with the CommentModel to a list with CommentViewModel. 
+        /// Using LINQ, this method converts a list with the PageModel to a list with PageDTO. 
         /// </summary>
-        /// <param name="userModels"></param>
+        /// <param name="pageModels"></param>
         /// <returns></returns>
-        public List<CommentViewModel> Convert_To_CommentViewModel(List<CommentModel> userModels)
+        public List<CommentViewModel> Convert_To_CommentViewModel(List<CommentModel> commentModel)
         {
-            return userModels.Select(x => Convert_To_CommentViewModel(x)).ToList();
+            return commentModel.Select(x => Convert_To_CommentViewModel(x)).ToList();
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace MvcCore.Converters
         }
 
         /// <summary>
-        /// Using LINQ, this method converts a list with the CommentViewModel to a list with CommentModel.
+        /// Using LINQ, this method converts a list with the PageModel to a list with PageDTO. 
         /// </summary>
-        /// <param name="commentView"></param>
+        /// <param name="pageModels"></param>
         /// <returns></returns>
         public List<CommentModel> Convert_To_CommentModel(List<CommentViewModel> commentView)
         {

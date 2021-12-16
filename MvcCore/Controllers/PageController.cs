@@ -19,30 +19,28 @@ namespace MvcCore.Controllers
     {
         // 
         private readonly ILogicPageContainer _textContainer;
-        private readonly ILogicCommentContainer _commentContainer;
         private readonly ILogicPage _textPage;
         private PageViewConverter _PageViewConverter = new PageViewConverter();
         private CommentViewConverter _CommentViewConverter = new CommentViewConverter();
 
-        public PageController(ILogicPageContainer pageContainer, ILogicCommentContainer commentContainer, ILogicPage textPage)
+        public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
         {
             _textContainer = pageContainer;
-            _commentContainer = commentContainer;
             _textPage = textPage;
         }
 
 
 
-        public IActionResult Page(int ID)
-        {
-            return View(_textContainer.GetPage(ID));
-        }
+        //public IActionResult Page(int ID)
+        //{
+        //    return View(_textContainer.GetPage(ID));
+        //}
+
         public IActionResult Index()
         {
             var model = new IndexPageViewModel
             {
                 pages = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetallText()),
-                comments = _CommentViewConverter.Convert_To_CommentViewModel(_commentContainer.GetallComments())
             };
             return View(model);
         }

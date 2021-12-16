@@ -23,13 +23,6 @@ namespace BusinessLogic.Containers
             _CommentConverter = commentConverter;
         }
 
-        public List<CommentModel> GetallComments()
-        {
-            List<CommentModel> allText = _CommentConverter.Convert_To_CommentModel(_Comments.GetallComments());
-            return allText;
-        }
-
-
         public void CreateComment(CommentModel comment)
         {
             try

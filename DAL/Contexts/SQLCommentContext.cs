@@ -18,34 +18,7 @@ namespace DAL.Contexts
         }
 
 
-        public List<CommentDTO> GetallComments()
-        {
-            List<CommentDTO> allComments = new List<CommentDTO>();
 
-
-
-            _connection.Open();
-            SqlCommand command = new SqlCommand("SELECT comment_id, text, created_at, user_id, page_id FROM comments", _connection);
-            {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        allComments.Add(new CommentDTO
-                        {
-                            ID = Convert.ToInt32(reader["comment_id"].ToString()),
-                            Text = reader["text"].ToString(),
-                            //created_at = (DateTime)reader["created_at"],
-                            //user_id = Convert.ToInt32(reader["user_id"].ToString()),
-                            //page_id = Convert.ToInt32(reader["page_id"].ToString())
-
-                        });
-                    }
-                }
-            }
-            _connection.Close();
-            return allComments;
-        }
         public void CreateComment(CommentDTO comment)
         {
             _connection.Open();
@@ -73,7 +46,7 @@ namespace DAL.Contexts
         public void DeleteComment(int ID)
         {
             _connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM users WHERE user_id=@ID", _connection);
+            SqlCommand command = new SqlCommand("DELETE FROM comments WHERE comment_id=@ID", _connection);
             {
                 command.Parameters.AddWithValue("ID", ID);
                 command.ExecuteNonQuery();

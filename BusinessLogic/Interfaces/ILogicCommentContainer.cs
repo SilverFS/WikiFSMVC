@@ -7,7 +7,6 @@ namespace BusinessLogic.Interfaces
 {
     public interface ILogicCommentContainer
     {
-        List<CommentModel> GetallComments();
         void CreateComment(CommentModel comment);
         public void DeleteComment(int ID);
 

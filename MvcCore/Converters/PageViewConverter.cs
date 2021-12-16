@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Models;
+﻿using BusinessLogic.Converter;
+using BusinessLogic.Models;
 using MvcCore.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,10 @@ namespace MvcCore.Converters
 {
     public class PageViewConverter
     {
+        private CommentViewConverter _CommentViewConverter = new CommentViewConverter();
+
+
+
         //Method overloading :)
         /// <summary>
         /// Takes values from PageModel and converts them equal to values from PageViewModel.
@@ -15,7 +20,8 @@ namespace MvcCore.Converters
         /// <returns></returns>
         public PageViewModel Convert_To_PageViewModel(PageModel pageModel)
         {
-            return new PageViewModel
+
+            var pageViewModel = new PageViewModel
             {
                 ID = pageModel.ID,
                 Title = pageModel.Title,
@@ -23,6 +29,11 @@ namespace MvcCore.Converters
                 created_at = pageModel.created_at,
                 updated_at = pageModel.updated_at,
             };
+            if (pageModel.comments != null)
+            {
+                pageViewModel.comments = _CommentViewConverter.Convert_To_CommentViewModel(pageModel.comments);
+            }
+            return pageViewModel;
         }
 
         /// <summary>

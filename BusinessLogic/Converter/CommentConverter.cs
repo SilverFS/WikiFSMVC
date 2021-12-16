@@ -30,14 +30,15 @@ namespace BusinessLogic.Converter
         }
 
         /// <summary>
-        /// Using LINQ, this method converts a list with the CommentModel to a list with CommentDTO. 
+        /// Using LINQ, this method converts a list with the PageModel to a list with PageDTO. 
         /// </summary>
         /// <param name="pageModels"></param>
         /// <returns></returns>
-        public List<CommentDTO> Convert_To_DTO_CommentModel(List<CommentModel> pageModels)
+        public List<CommentDTO> Convert_To_DTO_CommentModel(List<CommentModel> commentModels)
         {
-            return pageModels.Select(x => Convert_To_DTO_CommentModel(x)).ToList();
+            return commentModels.Select(x => Convert_To_DTO_CommentModel(x)).ToList();
         }
+
 
         /// <summary>
         /// Takes values from CommentDTO and converts them equal to values from CommentModel.
@@ -57,14 +58,13 @@ namespace BusinessLogic.Converter
         }
 
         /// <summary>
-        /// Using LINQ, this method converts a list with the CommentDTO to a list with CommentModel.
+        /// Using LINQ, this method converts a list with the PageModel to a list with PageDTO. 
         /// </summary>
-        /// <param name="dTO_PageModels"></param>
+        /// <param name="pageModels"></param>
         /// <returns></returns>
-        public List<CommentModel> Convert_To_CommentModel(List<CommentDTO> dTO_PageModels)
+        public List<CommentModel> Convert_To_CommentModel(List<CommentDTO> commentModels)
         {
-            return dTO_PageModels.Select(x => Convert_To_CommentModel(x)).ToList();
+            return commentModels.Select(x => Convert_To_CommentModel(x)).ToList();
         }
-
     }
 }
