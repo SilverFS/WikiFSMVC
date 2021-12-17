@@ -62,7 +62,7 @@ namespace WikiFSUnitTests.Pages
             pageContainer.CreatePage(pageModel);
             // Assert
             // Check if pagemodel.title is equal to title in mockup from list
-            Assert.AreNotEqual(pageModel.Title, mockup.pageList[0].Title);
+            Assert.AreEqual(pageModel.Title, mockup.pageList[1].Title);
         }
     }
 }
