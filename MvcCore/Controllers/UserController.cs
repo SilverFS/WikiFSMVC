@@ -18,10 +18,10 @@ namespace MvcCore.Controllers
             _CredUser = credUser;
         }
 
-        public IActionResult GetUser(int ID)
-        {
-            return View(_UserContainer.GetUser(ID));
-        }
+        //public IActionResult GetUser(int ID)
+        //{
+        //    return View(_UserContainer.GetUser(ID));
+        //}
 
         [HttpGet]
         public IActionResult Create()
