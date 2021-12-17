@@ -8,11 +8,9 @@ namespace MvcCore.Controllers
 {
     public class PageController : Controller
     {
-        // 
         private readonly ILogicPageContainer _textContainer;
         private readonly ILogicPage _textPage;
         private readonly PageViewConverter _PageViewConverter = new PageViewConverter();
-        private readonly CommentViewConverter _CommentViewConverter = new CommentViewConverter();
 
         public PageController(ILogicPageContainer pageContainer, ILogicPage textPage)
         {
@@ -21,11 +19,6 @@ namespace MvcCore.Controllers
         }
 
 
-
-        //public IActionResult Page(int ID)
-        //{
-        //    return View(_textContainer.GetPage(ID));
-        //}
 
         public IActionResult Index()
         {
