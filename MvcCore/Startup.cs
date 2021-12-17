@@ -38,30 +38,30 @@ namespace MvcCore
 
 
             // Fetches the connectionString for the injection with SqlConnection
-            services.AddSingleton(sp => new SqlConnection(Configuration.GetConnectionString("SQLConnection")));
-            //services.AddSingleton(sp => new MySqlConnection(Configuration.GetConnectionString("MySQLConnection")));
+            services.AddTransient(sp => new SqlConnection(Configuration.GetConnectionString("SQLConnection")));
+            //services.AddTransient(sp => new MySqlConnection(Configuration.GetConnectionString("MySQLConnection")));
 
 
             // These method defines which interface gets connected to which class
-            services.AddSingleton<ILogicPageContainer, PageContainer>();
-            services.AddSingleton<ILogicPage, Page>();
-            services.AddSingleton<ILogicUserContainer, UserContainer>();
-            services.AddSingleton<ILogicUser, User>();
-            services.AddSingleton<ILogicCommentContainer, CommentContainer>();
-            services.AddSingleton<PageConverter>();
-            services.AddSingleton<UserConverter>();
-            services.AddSingleton<CommentConverter>();
+            services.AddTransient<ILogicPageContainer, PageContainer>();
+            services.AddTransient<ILogicPage, Page>();
+            services.AddTransient<ILogicUserContainer, UserContainer>();
+            services.AddTransient<ILogicUser, User>();
+            services.AddTransient<ILogicCommentContainer, CommentContainer>();
+            services.AddTransient<PageConverter>();
+            services.AddTransient<UserConverter>();
+            services.AddTransient<CommentConverter>();
 
             // sql
-            services.AddSingleton<IPage, SQLPageContext>();
-            services.AddSingleton<IPageContainer, SQLPageContext>();
-            services.AddSingleton<IUser, SQLUserContext>();
-            services.AddSingleton<IUserContainer, SQLUserContext>();
-            services.AddSingleton<ICommentContainer, SQLCommentContext>();
+            services.AddTransient<IPage, SQLPageContext>();
+            services.AddTransient<IPageContainer, SQLPageContext>();
+            services.AddTransient<IUser, SQLUserContext>();
+            services.AddTransient<IUserContainer, SQLUserContext>();
+            services.AddTransient<ICommentContainer, SQLCommentContext>();
 
             // mysql
-            //services.AddSingleton<IPage, MySQLContext>();
-            //services.AddSingleton<IPageContainer, MySQLContext>();
+            //services.AddTransient<IPage, MySQLContext>();
+            //services.AddTransient<IPageContainer, MySQLContext>();
 
         }
 
