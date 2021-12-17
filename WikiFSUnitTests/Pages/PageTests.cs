@@ -10,7 +10,7 @@ using WikiFSUnitTests.Mockups;
 namespace WikiFSUnitTests.Pages
 {
     [TestClass]
-    public class PageTests
+    public class CommentTests
     {
         [TestMethod]
         public void ShouldDeletePage()

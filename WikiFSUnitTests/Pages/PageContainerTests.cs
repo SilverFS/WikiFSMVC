@@ -8,7 +8,7 @@ using WikiFSUnitTests.Mockups;
 namespace WikiFSUnitTests.Pages
 {
     [TestClass]
-    public class PageContainerTests
+    public class UserContainerTests
     {
         [TestMethod]
         public void ShouldGetallTextWhenDalProvidesList()
@@ -24,6 +24,7 @@ namespace WikiFSUnitTests.Pages
 
             // Assert
             Assert.IsNotNull(list);
+            Assert.AreEqual(1, list.Count);
         }
 
         [TestMethod]
