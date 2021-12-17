@@ -23,10 +23,10 @@ namespace BusinessLogic.Containers
             _User.CreateUser(_UserConverter.Convert_To_DTO_UserModel(user));
         }
 
-        public UserModel GetUser(int ID)
-        {
-            UserModel user = _UserConverter.Convert_To_UserModel(_User.GetUser(ID));
-            return user;
-        }
+        //public UserModel GetUser(int ID)
+        //{
+        //    UserModel user = _UserConverter.Convert_To_UserModel(_User.GetUser(ID));
+        //    return user;
+        //}
     }
 }
