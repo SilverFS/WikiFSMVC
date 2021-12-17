@@ -8,7 +8,7 @@
     <h4>New Page</h4>
     <hr />
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Text" class="control-label"></label>
-                    <textarea class="form-control" placeholder="Start typing your story!" id="floatingTextarea2" style="height: 200px; width: 400;" asp-for="Text"></textarea>
+                    <textarea class="form-control" placeholder="Start typing your story!" id="floatingTextarea2" asp-for="Text"></textarea>
                     <span asp-validation-for="Text" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -33,7 +33,14 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#floatingTextarea2' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -13,7 +13,7 @@
             <div class="list-group" id="list-tab" role="tablist">
                 @foreach (var Page in Model.pages)
                 {
-                    <a class="list-group-item list-group-item-action" id="list-@Page.ID-list" data-toggle="list" href="#list-@Page.ID" role="tab">@Page.Title</a>
+                    <a class="list-group-item list-group-item-action d-inline-block text-truncate" id="list-@Page.ID-list" data-toggle="list" href="#list-@Page.ID" role="tab">@Page.Title</a>
                 }
             </div>           
         </div>
@@ -95,14 +95,18 @@
                             {
                                 @foreach (var comment in Page.comments)
                                 {
-                                    <div>
-                                        <a class="list-group-item list-group-item-action">@comment.Text</a>
-                                        <a href="#" class="flex-fill badge badge-danger" data-toggle="modal" data-target="#DeleteCommentModal-@comment.ID">Delete</a>
-                                        -
-                                        <span class="flex-fill text-right"><strong>Created: </strong>@comment.created_at.ToString("dd/MM/yyyy") - (@comment.created_at.AddHours(-1).Humanize())</span> 
-                                        <br />
-                                        <br />
+                                    <div class="card mb-3">
+                                      <div class="card-header">
+                                        <strong>@comment.user_id</strong> : @comment.created_at.ToString("dd/MM/yyyy") - (@comment.created_at.AddHours(-1).Humanize())
+                                      </div>
+                                      <div class="card-body">
+                                        <blockquote class="blockquote mb-0">
+                                          <p>@comment.Text</p>                                                                                
+                                          <footer><a href="#" class="flex-fill badge badge-danger" data-toggle="modal" data-target="#DeleteCommentModal-@comment.ID">Delete</a></footer>
+                                        </blockquote>
+                                      </div>
                                     </div>
+                                    
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="DeleteCommentModal-@comment.ID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,9 +138,8 @@
                             
                       </div>
                         <h1>@Page.Title</h1>
-                        <br />
-                        <div style="height:100%;overflow:auto;">
-                            <p>@Page.Text</p>
+                        <div style="height:100%;overflow:auto;white-space: pre-wrap;">
+                            <p>@Html.Raw(@Page.Text)</p>
                         </div>
                         
                      </div>
