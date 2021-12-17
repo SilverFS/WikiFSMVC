@@ -31,7 +31,7 @@ namespace DAL.Contexts
             SqlCommand command = new SqlCommand("SELECT p.page_id, p.title, p.text, p.created_at, p.updated_at, " +
                 "c.comment_id, c.text AS content, c.created_at AS created_on, c.user_id, c.page_id " +
                 "FROM pages AS p LEFT JOIN comments AS c ON (p.page_id = c.page_id ) " +
-                "ORDER BY c.created_at DESC;", _connection);
+                "ORDER BY p.created_at DESC;", _connection);
             {
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

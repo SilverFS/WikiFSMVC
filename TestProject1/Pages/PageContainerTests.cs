@@ -50,11 +50,19 @@ namespace WikiFSUnitTests.Pages
             SQLPageContextMockup mockup = new SQLPageContextMockup();
             PageConverter converter = new PageConverter();
             PageContainer pageContainer = new PageContainer(mockup, converter);
-            PageModel pageModel;
+            PageModel pageModel = new PageModel
+            {
+                Title = "Bruh Title",
+                Text = "Some content",
+                created_at = System.DateTime.Now,
+                updated_at = System.DateTime.Now,
+            };
+
             // Act
-            //pageModel = pageContainer.CreatePage();
+            pageContainer.CreatePage(pageModel);
             // Assert
-            Assert.IsNull(pageModel);
+            // Check if pagemodel.title is equal to title in mockup from list
+            Assert.AreEqual(pageModel.Title, mockup.pageList[1].Title);
         }
     }
 }

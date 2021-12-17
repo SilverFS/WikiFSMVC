@@ -9,7 +9,7 @@
     <h4>Note</h4>
     <hr />
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -34,7 +34,14 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#floatingTextarea2' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
