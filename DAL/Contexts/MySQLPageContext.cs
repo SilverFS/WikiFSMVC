@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
-using System.Text;
+﻿using DAL.DTO;
 using DAL.Interfaces;
-using DAL.DTO;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace DAL.Contexts
 {
-    public class MySQLContext : IPageContainer, IPage
+    public class MySQLPageContext : IPageContainer, IPage
     {
 
-        private MySqlConnection _connection;
+        private readonly MySqlConnection _connection;
 
-        public MySQLContext(MySqlConnection configuration)
+        public MySQLPageContext(MySqlConnection configuration)
         {
             _connection = configuration;
         }

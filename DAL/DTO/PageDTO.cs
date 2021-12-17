@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DAL.DTO
 {
@@ -13,5 +12,6 @@ namespace DAL.DTO
         public DateTime updated_at { get; set; }
         public int user_id { get; set; }
         public int folder_id { get; set; }
+        public List<CommentDTO> comments { get; set; }
     }
 }

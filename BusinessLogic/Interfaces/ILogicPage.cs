@@ -1,8 +1,4 @@
-﻿using BusinessLogic.Converter;
-using BusinessLogic.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BusinessLogic.Models;
 
 namespace BusinessLogic.Interfaces
 {

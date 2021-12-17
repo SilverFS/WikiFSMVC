@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
-using System.Text;
+﻿using DAL.DTO;
 using DAL.Interfaces;
-using DAL.DTO;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 
 
 
 namespace DAL.Contexts
 {
-    public class SQLContext : IPageContainer, IPage
+    public class SQLPageContext : IPageContainer, IPage
     {
 
-        private SqlConnection _connection;
+        private readonly SqlConnection _connection;
 
-        public SQLContext(SqlConnection configuration)
+        public SQLPageContext(SqlConnection configuration)
         {
             _connection = configuration;
         }
@@ -26,24 +23,51 @@ namespace DAL.Contexts
         public List<PageDTO> GetallText()
         {
             List<PageDTO> allText = new List<PageDTO>();
+            List<CommentDTO> allComments = new List<CommentDTO>();
 
 
 
             _connection.Open();
-            SqlCommand command = new SqlCommand("SELECT page_id, title, text, created_at, updated_at FROM pages", _connection);
+            SqlCommand command = new SqlCommand("SELECT p.page_id, p.title, p.text, p.created_at, p.updated_at, " +
+                "c.comment_id, c.text AS content, c.created_at AS created_on, c.user_id, c.page_id " +
+                "FROM pages AS p LEFT JOIN comments AS c ON (p.page_id = c.page_id ) " +
+                "ORDER BY c.created_at DESC;", _connection);
             {
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
+                    var lastPage = 0;
                     while (reader.Read())
                     {
-                        allText.Add(new PageDTO
+                        if (lastPage != Convert.ToInt32(reader["page_id"].ToString()))
                         {
-                            ID = Convert.ToInt32(reader["page_id"].ToString()),
-                            Title = reader["title"].ToString(),
-                            Text = reader["text"].ToString(),
-                            created_at = (DateTime)reader["created_at"],
-                            updated_at = (DateTime)reader["updated_at"]
-                        });
+                            allComments = new List<CommentDTO>();
+                            allText.Add(new PageDTO
+                            {
+                                ID = Convert.ToInt32(reader["page_id"].ToString()),
+                                Title = reader["title"].ToString(),
+                                Text = reader["text"].ToString(),
+                                created_at = (DateTime)reader["created_at"],
+                                updated_at = (DateTime)reader["updated_at"],
+                                comments = allComments
+                            });
+                            lastPage = Convert.ToInt32(reader["page_id"].ToString());
+                        }
+
+
+                        if (!DBNull.Value.Equals(reader["comment_id"]))
+                        {
+                            allComments.Add(new CommentDTO
+                            {
+                                ID = Convert.ToInt32(reader["comment_id"].ToString()),
+                                Text = reader["content"].ToString(),
+                                created_at = (DateTime)reader["created_on"],
+                                //user_id = Convert.ToInt32(reader["user_id"].ToString()),
+                                page_id = Convert.ToInt32(reader["page_id"].ToString())
+
+                            });
+                        }
+
+
                     }
                 }
             }
@@ -58,7 +82,6 @@ namespace DAL.Contexts
         /// <returns>Returns the ID, Title and Text of a page.</returns>
         public PageDTO GetPage(int ID)
         {
-
 
             _connection.Open();
             SqlCommand command = new SqlCommand("SELECT page_id, title, text FROM pages WHERE page_id=@ID", _connection);
