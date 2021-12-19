@@ -20,11 +20,13 @@ namespace MvcCore.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult Index(int activePage = 0)
         {
+
             var model = new IndexPageViewModel
             {
                 pages = _PageViewConverter.Convert_To_PageViewModel(_textContainer.GetallText()),
+                activePage = activePage
             };
             return View(model);
         }
@@ -60,7 +62,7 @@ namespace MvcCore.Controllers
         {
             var updated = _PageViewConverter.Convert_To_PageModel(page);
             _textPage.Update(updated);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(PageController.Index), new { activePage = page.ID });
         }
 
         public IActionResult Privacy()
