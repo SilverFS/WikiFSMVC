@@ -86,7 +86,7 @@
                             <br />
                             <h3>Comments</h3>
                             <br />
-                            <form asp-controller="Comment" asp-action="Create">
+                            <form asp-controller="Comment" asp-route-pageID="@Page.ID" asp-action="Create">
                                 <div class="form-group">
                                     <textarea class="form-text col-12" required name="Text"></textarea>
                                     <input hidden name="page_id" value=@Page.ID />
@@ -130,7 +130,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                    <a asp-controller="Comment" asp-action="Delete" asp-route-ID="@comment.ID" class="btn btn-danger">Delete</a>
+                                                    <a asp-controller="Comment" asp-action="Delete" asp-route-pageID="@Page.ID" asp-route-ID="@comment.ID" class="btn btn-danger">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

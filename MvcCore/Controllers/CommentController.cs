@@ -19,19 +19,19 @@ namespace MvcCore.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(CommentViewModel comment)
+        public IActionResult Create(CommentViewModel comment, int pageID)
         {
             var modelCreate = _CommentViewConverter.Convert_To_CommentModel(comment);
             _commentContainer.CreateComment(modelCreate);
-            return Redirect(Request.Headers["Referer"].ToString());
+            return RedirectToAction(nameof(PageController.Index), "Page", new { activePage = pageID });
         }
 
 
         [HttpGet]
-        public IActionResult Delete(int ID)
+        public IActionResult Delete(int ID, int pageID)
         {
             _commentContainer.DeleteComment(ID);
-            return Redirect(Request.Headers["Referer"].ToString());
+            return RedirectToAction(nameof(PageController.Index), "Page", new { activePage = pageID });
         }
     }
 }
