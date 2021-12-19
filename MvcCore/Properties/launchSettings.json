@@ -33,4 +33,5 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
+  }
 }
