@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  mvccore:
+    image: ${DOCKER_REGISTRY-}mvccore
+    build:
+      context: .
+      dockerfile: MvcCore/Dockerfile
+    environment:
+      - ASPNETCORE-ENVIRONMENT=Production
+    ports:
+      - "5001:80"

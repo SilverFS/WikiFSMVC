@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikiFSUnitTests", "WikiFSUnitTests\WikiFSUnitTests.csproj", "{7A6F7484-DF2F-4BD5-93DD-DB85609B3D63}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{804930C6-CC9B-4301-A612-83A9AF0FF626}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7A6F7484-DF2F-4BD5-93DD-DB85609B3D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A6F7484-DF2F-4BD5-93DD-DB85609B3D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A6F7484-DF2F-4BD5-93DD-DB85609B3D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{804930C6-CC9B-4301-A612-83A9AF0FF626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804930C6-CC9B-4301-A612-83A9AF0FF626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804930C6-CC9B-4301-A612-83A9AF0FF626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804930C6-CC9B-4301-A612-83A9AF0FF626}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
