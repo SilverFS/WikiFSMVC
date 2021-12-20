@@ -6,7 +6,24 @@ services:
     build:
       context: .
       dockerfile: MvcCore/Dockerfile
-    environment:
-      - ASPNETCORE-ENVIRONMENT=Production
     ports:
       - "5001:80"
+    environment:
+      - ConnectionString=Data Source=sqlserverfs;Initial Catalog=wikifs;User Id=sa;Password=Test3211!;Pooling=False;Max Pool Size=200;MultipleActiveResultSets=True
+    depends_on:
+      - sqlserverfs
+  sqlserverfs:
+    image: mcr.microsoft.com/mssql/server:latest
+    build:
+      context: .
+      dockerfile: MvcCore/DockerDB/Dockerfile
+    ports:
+      - "${DOCKER_SQL_PORT:-1433}:1433"
+    volumes:
+      - mssqldata:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Test3211!
+
+volumes:
+  mssqldata:
