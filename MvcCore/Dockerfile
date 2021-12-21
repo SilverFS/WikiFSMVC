@@ -13,6 +13,7 @@ COPY ["DAL/DAL.csproj", "DAL/"]
 RUN dotnet restore "MvcCore/MvcCore.csproj"
 COPY . .
 WORKDIR "/src/MvcCore"
+RUN dotnet dev-certs https
 RUN dotnet build "MvcCore.csproj" -c Release -o /app/build
 
 FROM build AS publish

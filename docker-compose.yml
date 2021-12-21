@@ -3,17 +3,19 @@ version: '3.4'
 services:
   mvccore:
     image: ${DOCKER_REGISTRY-}mvccore
+    container_name: wikifs
     build:
       context: .
       dockerfile: MvcCore/Dockerfile
     ports:
       - "5001:80"
+    networks:
+      - databasefs
     environment:
-      - ConnectionString=Data Source=sqlserverfs;Initial Catalog=wikifs;User Id=sa;Password=Test3211!;Pooling=False;Max Pool Size=200;MultipleActiveResultSets=True
-    depends_on:
-      - sqlserverfs
+      - ConnectionString=Server=sqlserverfs;Database=wikifs;User Id=sa;Password=Test3211!;
   sqlserverfs:
     image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserverfs
     build:
       context: .
       dockerfile: MvcCore/DockerDB/Dockerfile
@@ -25,5 +27,12 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Test3211!
 
+    networks:
+      databasefs:
+        aliases:
+          - sqlserverfs
+
 volumes:
   mssqldata:
+networks:
+  databasefs:
