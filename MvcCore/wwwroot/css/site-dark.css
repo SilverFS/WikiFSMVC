@@ -1,0 +1,157 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #fff;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: rgb(24, 26, 27);
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #e5e5e5;
+    border-color: #1861ac;
+}
+
+
+/* ADDED CONTENT */
+.navbar {
+    background-color: rgb(19, 21, 22);
+}
+
+.list-group-item.active {
+    background-color: #34393e;
+    border-color: rgb(19, 21, 22);
+    color: #fff;
+}
+
+.list-group-item-action:active {
+    background-color: #34393e
+}
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+    background-color: #34393e;
+    color: #fff;
+}
+
+.list-group-item {
+    background-color: rgb(19, 21, 22);
+    color: #fff;
+}
+
+
+.form-control {
+    background-color: rgb(24, 26, 27);
+    color: #fff;
+}
+
+    .form-control:focus {
+        background-color: rgb(24, 26, 27);
+        color: #fff;
+    }
+
+
+.form-text {
+    background: rgb(19, 21, 22);
+    color: #fff;
+}
+
+.close:focus {
+    color: #fff;
+}
+
+.close {
+    color: #fff;
+}
+
+.modal-content {
+    background: rgb(24, 26, 27);
+    border-color: #e5e5e5;
+}
+
+.modal-header {
+    background-color: rgb(24, 26, 27);
+}
+
+.modal-body {
+    background-color: rgb(24, 26, 27);
+}
+
+.modal-footer {
+    background: rgb(24, 26, 27);
+    border-top: rgb(24, 26, 27);
+}
+
+.nav-link:active {
+    color: #fff;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    background-color: rgb(24, 26, 27);
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: rgba(0, 0, 0, .05);
+    color: #fff;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: rgb(19, 21, 22);
+}
+
+.card {
+    background-color: rgb(19, 21, 22);
+    border-color: #495057;
+}
